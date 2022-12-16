@@ -11,22 +11,24 @@ const Api = (() => {
     };
 })();
 
+
+
 const coursesContainer = document.querySelector("#courses_container")
 console.log(coursesContainer)
 
 Api.getCourses('http://localhost:4232/courseList')
     .then((data) => {
         data.forEach(course => {
-            let text = ""
+            let type = ""
             if(course.required){
-                text = "Compulsory"
+                type = "Compulsory"
             } else {
-                text = "Elective"
+                type = "Elective"
             }
             coursesContainer.innerHTML += `
-                <li id= "${course.courseId}" class ="list-item" data-credit = ${course.credit}>
+                <li id= "${course.courseId}" class ="list-item" data-credit = ${course.credit} data-courseName = ${course.courseName} data-type = ${type}>
                     <p>${course.courseName}</p>
-                    <p>Course Type: ${text}</p>
+                    <p>Course Type: ${type}</p>
                     <p>Course Credit: ${course.credit}</p>
                 <li>
             `
@@ -53,10 +55,21 @@ document.addEventListener("click", function (e) {
 });
 
 const form = document.querySelector("form")
-const selectedCourse = document.querySelector(".list-item.selected")
-
+const selectedCoursesContainer = document.querySelector("#selected_courses_container")
 form.addEventListener("submit", event => {
     event.preventDefault()
+    const selectedCourse = document.querySelectorAll(".list-item.selected")
+    console.log(selectedCourse)
+    selectedCourse.forEach(course => {
+        console.log(course)
+        selectedCoursesContainer.innerHTML += `
+                <li id= "${course.courseId}" class ="list-item" data-credit = ${course.credit} data-courseName = ${course.courseName} data-type = ${type}>
+                    <p>${course.courseName}</p>
+                    <p>Course Type: ${type}</p>
+                    <p>Course Credit: ${course.credit}</p>
+                <li>
+            `
+    })
 
 })
 
