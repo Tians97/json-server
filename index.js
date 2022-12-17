@@ -26,7 +26,7 @@ const View = (() => {
                 type = "Elective"
             }
             tmp += `
-                <li id= "${course.courseId}" class ="list-item">
+                <li id= "${course.courseId}" class ="list-item" data-credit = ${course.credit}>
                     ${course.courseName}</br>
                     Course Type: ${type}</br>
                     Course Credit: ${course.credit}</br>
@@ -107,8 +107,8 @@ const Model = ((api, view) => {
 
 const Controller = ((model, view) => {
     const state = new model.State();
-    const select = new model.Selected
-();
+    const select = new model.Selected();
+    const credit = new model.TotalCredit();
     let allCourses;
 
     const init = () => {
@@ -123,7 +123,18 @@ const Controller = ((model, view) => {
         courses.forEach((li) => {
             li.addEventListener("click", (e) => {
                 e.target.classList.toggle("selected");
-                
+                console.log(e.target)
+                console.log(e.target.dataset.credit)
+                if(e.target.classList.contains("selected")){
+                    credit.totalCredit = Number(credit.totalCredit) + Number(e.target.dataset.credit)
+                    if(credit.totalCredit > 18){
+                        alert("You cannot choose more than 18 credits in one semester!")
+                        e.target.classList.toggle("selected")
+                        credit.totalCredit = Number(credit.totalCredit) - Number(e.target.dataset.credit)
+                    }
+                } else {
+                    credit.totalCredit = Number(credit.totalCredit) - Number(e.target.dataset.credit)
+                }
             });
         });
     };
