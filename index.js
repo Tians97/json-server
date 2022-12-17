@@ -26,11 +26,11 @@ const View = (() => {
                 type = "Elective"
             }
             tmp += `
-                <div id= "${course.courseId}" class ="list-item">
-                    <p>${course.courseName}</p>
-                    <p>Course Type: ${type}</p>
-                    <p>Course Credit: ${course.credit}</p>
-                </div>
+                <li id= "${course.courseId}" class ="list-item">
+                    ${course.courseName}</br>
+                    Course Type: ${type}</br>
+                    Course Credit: ${course.credit}</br>
+                </li>
             `
         });
         return tmp
@@ -116,13 +116,16 @@ const Controller = ((model, view) => {
             state.courseList = courses;
             allCourses = courses;
         });
-        credit.creidtCount = 0;
     };
 
     const selectCourse = () => {
-        const courses = document.querySelectorAll("#courses_container")
-        
-
+        const courses = document.querySelectorAll(view.domstr.coursesContainer);
+        courses.forEach((li) => {
+            li.addEventListener("click", (e) => {
+                e.target.classList.toggle("selected");
+                
+            });
+        });
     };
 
     
