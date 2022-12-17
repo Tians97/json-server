@@ -25,13 +25,14 @@ h1,h3{
     padding: 0px, 5px;
 }
 
-ul:nth-child(){
-    background-color: aquamarine;
+.selected{
+    background-color: cornflowerblue !important
 }
 
-.selected{
-    background-color: blue;
+.list-item:nth-child(odd) {
+    background-color: rgb(221, 239, 221);
 }
+
 
 
 #courses{
@@ -39,6 +40,8 @@ ul:nth-child(){
     height: 300px;
     overflow: hidden;
     overflow-y: scroll;
+    border: 2px solid gray;
+    margin-right: 200px;
 }
 
 #selected-courses {
@@ -46,11 +49,13 @@ ul:nth-child(){
     height: 300px;
     overflow: hidden;
     overflow-y: scroll;
+    border: 2px solid gray;
 }
 
 p{
-    font-size: 12px;
+    font-size: 13px;
     text-align: center;
+    margin: 0;
 }
 
 #submit-row{
