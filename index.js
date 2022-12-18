@@ -156,7 +156,7 @@ const Controller = ((model, view) => {
                     allCourses.splice(id, 1);
                 });
                 let conf = window.confirm(
-                    `You have chose ${credit.creidtCount} credits for this semster. You cannot change once you submit. Do you want to confirm?`
+                    `You have chose ${credit.creidtCount} credits for this semester. You cannot change once you submit. Do you want to confirm?`
                 );
                 if (conf) {
                     state.courseList = allCourses;
