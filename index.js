@@ -139,11 +139,40 @@ const Controller = ((model, view) => {
         });
     };
 
+    const submitForm = () => {
+        const button = document.querySelector("button")
+        button.addEventListener("click", event => {
+            event.preventDefault()
+            const selectedCourses = document.getElementsByClassName("selected");
+            let res = [];
+            if (selectedCourses.length === 0) {
+                alert("Please choose your courses first!");
+            } else {
+                for (let i = 0; i < selectedCourses.length; i++) {
+                    res.push(allCourses[selectedCourses[i].id - 1]);
+                }
+                res.forEach((elem) => {
+                    let id = allCourses.indexOf(elem);
+                    allCourses.splice(id, 1);
+                });
+                let conf = window.confirm(
+                    `You have chose ${credit.creidtCount} credits for this semster. You cannot change once you submit. Do you want to confirm?`
+                );
+                if (conf) {
+                    state.courseList = allCourses;
+                    select.courseList = res;
+                    button.disabled = true;
+                }
+            }
+        });
+    };
+
     
 
     const bootstrap = () => {
         init();
-        selectCourse()
+        selectCourse();
+        submitForm();
     };
     return { bootstrap };
 })(Model, View);
